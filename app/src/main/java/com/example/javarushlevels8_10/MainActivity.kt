@@ -1,9 +1,12 @@
 package com.example.javarushlevels8_10
 
+import android.content.Intent
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 
 import android.view.View
+import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_main.*
 
 //import android.R
@@ -22,13 +25,27 @@ class MainActivity : AppCompatActivity() {
     var price = 5
 
     fun increment(view: View) {
+        if (numberOfCoffees == 100) Toast.makeText(
+            this,
+            "Нельзя заказать больше ста чашек кофе",
+            Toast.LENGTH_SHORT
+        ).show()
+        else {
         numberOfCoffees++
         displayQuantity(numberOfCoffees)
+        }
     }
 
     fun decrement(view: View) {
-        numberOfCoffees--
-        displayQuantity(numberOfCoffees)
+        if (numberOfCoffees == 1) Toast.makeText(
+            this,
+            "Нельзя заказать меньше одной чашки кофе",
+            Toast.LENGTH_SHORT
+        ).show()
+        else {
+            numberOfCoffees--
+            displayQuantity(numberOfCoffees)
+        }
     }
 
     /**
@@ -55,14 +72,41 @@ class MainActivity : AppCompatActivity() {
      */
     private fun calculatePrice(quantity: Int) {
         price = quantity * 5
+        if (cream_checkbox.isChecked) price += quantity * 1
+        if (chocolate_checkbox.isChecked) price += quantity * 2
     }
 
-    fun createOrderSummary(a: Number) {
-        order_summary_text_view.text =
-                    "\nName: Eugene Bobrutskov" +
-                    "\nQuantity: $a" +
-                    "\nTotal: $price" +
-                    "\nThank you!"
+    private fun createOrderSummary(a: Number) {
+        var orderSummaryText =
+            "Name: " +
+                    if (name_checkbox.text.isEmpty()) "Eugene Bobrutskov "
+                    else name_checkbox.text
+        orderSummaryText += "\n"
+        orderSummaryText +="Add whipered cream? " +
+                    if (cream_checkbox.isChecked) "true \n"
+                    else "false \n"
+        orderSummaryText +="Add chocolate? " +
+                if (chocolate_checkbox.isChecked) "true \n"
+                else "false \n"
+        orderSummaryText +=
+            "Quantity: $a \n" +
+            "Total: $price \n" +
+            "Thank you! \n"
+
+        //order_summary_text_view.text = orderSummaryText
+
+        val recipientMessage:Array<String> = arrayOf("Zhekzerg@gmail.com")
+
+        val intent = Intent(Intent.ACTION_SEND).apply {
+            type = "text/plain"
+            putExtra(Intent.EXTRA_EMAIL, recipientMessage)
+            putExtra(Intent.EXTRA_SUBJECT, "Just Java order")
+            putExtra(Intent.EXTRA_TEXT, orderSummaryText)
+        }
+        if (intent.resolveActivity(packageManager) != null) {
+            startActivity(intent)
+        }
+
     }
 
 }
