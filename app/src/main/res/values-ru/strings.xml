@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">>
+    <string name="app_name">JavaRushLevels8_10</string>
+    <string name="thank_you">Спасибо!</string>
+    <string name="topping">Топпинг</string>
+
+    <string name="order_summary_name">Имя: %1$s</string>
+
+    <string name="chocolate">Шоколад</string>
+    <string name="name">Имя</string>
+    <string name="order">Заказать</string>
+
+    <string name="quantity">Количество</string>
+    <string name="whipped_cream">Взбитые сливки</string>
+    <string name="total_dots">Итого: <xliff:g id="price" example="5">%s</xliff:g>
+    </string>
+    <string name="quantity_dots">Количество: <xliff:g id="a" example="1">%s</xliff:g>
+    </string>
+    <string name="add_whipered_cream">Добавить взбитые сливки?</string>
+    <string name="add_chocolate">Добавить шоколад?</string>
+    <string name="True">да</string>
+    <string name="False">нет</string>
+
+
+
+    <string name="subject" example="Евгений">Just Java заказ от %1$s</string>
+
+    <string name="less_than_one_cup">Нельзя заказать меньше одной чашки кофе</string>
+</resources>

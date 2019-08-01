@@ -1,16 +1,11 @@
 package com.example.javarushlevels8_10
 
 import android.content.Intent
-import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-
 import android.view.View
 import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_main.*
-
-//import android.R
-
 
 class MainActivity : AppCompatActivity() {
 
@@ -19,8 +14,6 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
     }
 
-    //val valueOfCoffees = value_of_quantity_text_view.text
-    //var numberOfCoffees = valueOfCoffees.toString().toInt()
     var numberOfCoffees = 1
     var price = 5
 
@@ -31,15 +24,15 @@ class MainActivity : AppCompatActivity() {
             Toast.LENGTH_SHORT
         ).show()
         else {
-        numberOfCoffees++
-        displayQuantity(numberOfCoffees)
+            numberOfCoffees++
+            displayQuantity(numberOfCoffees)
         }
     }
 
     fun decrement(view: View) {
         if (numberOfCoffees == 1) Toast.makeText(
             this,
-            "Нельзя заказать меньше одной чашки кофе",
+            getString(R.string.less_than_one_cup),
             Toast.LENGTH_SHORT
         ).show()
         else {
@@ -54,7 +47,6 @@ class MainActivity : AppCompatActivity() {
     fun submitOrder(view: View) {
         displayQuantity(numberOfCoffees)
         calculatePrice(numberOfCoffees)
-        //displayPrice(price)
         createOrderSummary(numberOfCoffees)
     }
 
@@ -76,37 +68,39 @@ class MainActivity : AppCompatActivity() {
         if (chocolate_checkbox.isChecked) price += quantity * 2
     }
 
+    //var nameCheckboxText = name_checkbox.text.toString()
+    //if (name_checkbox.text.toString() == "")
+    //TODO надо сделать чтобы при пустом вводе отправлялось заготовка и доделать англ локализацию
+
     private fun createOrderSummary(a: Number) {
         var orderSummaryText =
-            "Name: " +
-                    if (name_checkbox.text.isEmpty()) "Eugene Bobrutskov "
-                    else name_checkbox.text
+            getString(R.string.order_summary_name, name_checkbox.text)
         orderSummaryText += "\n"
-        orderSummaryText +="Add whipered cream? " +
-                    if (cream_checkbox.isChecked) "true \n"
-                    else "false \n"
-        orderSummaryText +="Add chocolate? " +
-                if (chocolate_checkbox.isChecked) "true \n"
-                else "false \n"
-        orderSummaryText +=
-            "Quantity: $a \n" +
-            "Total: $price \n" +
-            "Thank you! \n"
+        orderSummaryText += getString(R.string.add_whipered_cream) +
+                if (cream_checkbox.isChecked) " " + getString(R.string.True)
+                else " " + getString(R.string.False)
+        orderSummaryText += "\n"
+        orderSummaryText += getString(R.string.add_chocolate) +
+                if (chocolate_checkbox.isChecked) " " + getString(R.string.True)
+                else " " + getString(R.string.False)
+        orderSummaryText += "\n"
+        orderSummaryText += getString(R.string.quantity_dots, a)
+        orderSummaryText += "\n"
+        orderSummaryText += getString(R.string.total_dots, price.toString())
+        orderSummaryText += "\n"
+        orderSummaryText += getString(R.string.thank_you)
 
-        //order_summary_text_view.text = orderSummaryText
-
-        val recipientMessage:Array<String> = arrayOf("Zhekzerg@gmail.com")
+        //val recipientMessage:Array<String> = arrayOf("Zhekzerg@gmail.com")
+        //val nameCheckboxText = name_checkbox.text
 
         val intent = Intent(Intent.ACTION_SEND).apply {
             type = "text/plain"
-            putExtra(Intent.EXTRA_EMAIL, recipientMessage)
-            putExtra(Intent.EXTRA_SUBJECT, "Just Java order")
+            putExtra(Intent.EXTRA_EMAIL, "")
+            putExtra(Intent.EXTRA_SUBJECT, getString(R.string.subject, name_checkbox.text))
             putExtra(Intent.EXTRA_TEXT, orderSummaryText)
         }
         if (intent.resolveActivity(packageManager) != null) {
             startActivity(intent)
         }
-
     }
-
 }
