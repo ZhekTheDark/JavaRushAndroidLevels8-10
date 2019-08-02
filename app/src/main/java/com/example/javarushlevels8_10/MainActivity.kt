@@ -68,15 +68,11 @@ class MainActivity : AppCompatActivity() {
         if (chocolate_checkbox.isChecked) price += quantity * 2
     }
 
-    //var nameCheckboxText = name_checkbox.text.toString()
-    //if (name_checkbox.text.toString() == "")
-    //TODO надо сделать чтобы при пустом вводе отправлялось заготовка и доделать англ локализацию
-
     private fun createOrderSummary(a: Number) {
         var orderSummaryText =
             getString(R.string.order_summary_name, name_checkbox.text)
         orderSummaryText += "\n"
-        orderSummaryText += getString(R.string.add_whipered_cream) +
+        orderSummaryText += getString(R.string.add_whipped_cream) +
                 if (cream_checkbox.isChecked) " " + getString(R.string.True)
                 else " " + getString(R.string.False)
         orderSummaryText += "\n"
@@ -90,8 +86,7 @@ class MainActivity : AppCompatActivity() {
         orderSummaryText += "\n"
         orderSummaryText += getString(R.string.thank_you)
 
-        //val recipientMessage:Array<String> = arrayOf("Zhekzerg@gmail.com")
-        //val nameCheckboxText = name_checkbox.text
+        //val recipientMessage:Array<String> = arrayOf("")
 
         val intent = Intent(Intent.ACTION_SEND).apply {
             type = "text/plain"
