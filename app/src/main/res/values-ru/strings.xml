@@ -22,4 +22,5 @@
     <string name="False">нет</string>
 
     <string name="less_than_one_cup">Нельзя заказать меньше одной чашки кофе</string>
+    <string name="more_cups">Нельзя заказать больше ста чашек кофе</string>
 </resources>

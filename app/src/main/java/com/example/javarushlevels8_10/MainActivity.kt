@@ -20,7 +20,7 @@ class MainActivity : AppCompatActivity() {
     fun increment(view: View) {
         if (numberOfCoffees == 100) Toast.makeText(
             this,
-            "Нельзя заказать больше ста чашек кофе",
+            getString(R.string.more_cups),
             Toast.LENGTH_SHORT
         ).show()
         else {
